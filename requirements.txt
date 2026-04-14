@@ -1,13 +1,34 @@
-streamlit==1.35.0
-requests>=2.31.0
-shapely>=2.0.3
-pyproj>=3.6.1
+# Tree Species Plausibility Checker (Streamlit)
 
-# Satellite steps (optional but recommended)
-numpy>=1.26.4
-pystac-client>=0.7.6
-planetary-computer>=1.0.0
-odc-stac>=0.3.10
-xarray>=2024.1.0
-rasterio>=1.3.10
-rioxarray>=0.15.5
+This Streamlit app performs an **evidence-based plausibility check** for a *claimed tree species* within a *user-provided plot polygon*.
+
+**Inputs**
+- Claimed species (scientific name)
+- Plot boundary polygon (GeoJSON; EPSG:4326 lon/lat)
+
+**Evidence sources used (public):**
+- **GBIF**: taxonomy match + occurrence records in/near the polygon
+- **ESA WorldCover**: land cover class proportions for the polygon area
+- **Sentinel-2 L2A**: NDVI summary statistics over the polygon
+
+> ⚠️ This is **not** a definitive species identification for an individual tree. It’s a plausibility assessment based on public biodiversity and remote-sensing signals.
+
+## Run locally
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+streamlit run app.py
+```
+
+## Deploy (Streamlit Community Cloud)
+
+1. Push this folder to a GitHub repository.
+2. Ensure `runtime.txt` exists (Python 3.11) and `requirements.txt` pins Pillow.
+3. Create a new Streamlit app pointing to `app.py`.
+
+## Streamlit Cloud build note
+
+If Streamlit Cloud fails to build **Pillow**, this repo pins a wheel-supported version and sets Python via `runtime.txt` (Python 3.11).
+

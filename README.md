@@ -26,10 +26,6 @@ worldcover_year = col2.selectbox("WorldCover year", [2021, 2020], index=0)
 nearby_radius_km = col3.slider("Nearby GBIF radius (km)", 5, 200, 50)
 max_occ = col4.slider("GBIF max records (paged)", 300, 3000, 900, step=300)
 
-with st.expander("Advanced settings"):
-    st.write("**Tip:** Satellite steps may be slower and require outbound internet access.")
-    st.write("You can cache results server-side in Streamlit Cloud by enabling Streamlit caching (already used in core).")
-
 if st.button("Run check"):
     try:
         boundary_geojson = json.loads(boundary_text)
